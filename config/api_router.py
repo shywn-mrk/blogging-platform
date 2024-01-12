@@ -7,7 +7,7 @@ from blogging_platform.users.api.views import UserViewSet
 if settings.DEBUG:
     router = DefaultRouter()
 else:
-    router = SimpleRouter()
+    router = SimpleRouter()  # type: ignore
 
 router.register("users", UserViewSet)
 

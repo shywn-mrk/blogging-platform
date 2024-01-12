@@ -23,7 +23,7 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    objects = UserManager()
+    objects = UserManager()  # type: ignore
 
     def get_absolute_url(self) -> str:
         """Get URL for user's detail view.
