@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from posts.api.serializers import *
-from posts.models import *
+from blogging_platform.posts.api.serializers import *
+from blogging_platform.posts.models import *
 
 
 class PostViewset(viewsets.ModelViewSet):

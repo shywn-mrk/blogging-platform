@@ -1,8 +1,8 @@
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
+from blogging_platform.posts.api.views import *
 from blogging_platform.users.api.views import UserViewSet
-from posts.api.views import *
 
 if settings.DEBUG:
     router = DefaultRouter()

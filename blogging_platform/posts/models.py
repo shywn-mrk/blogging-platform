@@ -17,6 +17,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=150)
     body = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

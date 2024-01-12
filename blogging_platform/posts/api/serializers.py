@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from posts.models import *
+from blogging_platform.posts.models import *
 
 
 class CategorySerializer(serializers.ModelSerializer):
