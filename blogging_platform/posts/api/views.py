@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+# from blogging_platform.posts.api.permissions import IsBlogUserPermission
 
 from blogging_platform.posts.api.serializers import *
 from blogging_platform.posts.filters import PostFilterSet
@@ -9,12 +9,18 @@ from .paginations import StandardResultsSetPagination
 
 
 class PostViewset(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    # queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsBlogUserPermission]
     filterset_class = PostFilterSet
     pagination_class = StandardResultsSetPagination
     search_fields = ['title']
+
+    def get_queryset(self):
+        return Post.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer) -> None:
+        serializer.save(user=self.request.user)
 
 
 class CategoryViewset(viewsets.ModelViewSet):

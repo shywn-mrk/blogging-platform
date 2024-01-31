@@ -11,8 +11,8 @@ else:
 
 router.register("users", UserViewSet)
 
-router.register("posts", PostViewset)
-router.register("categories", CategoryViewset)
+router.register("posts", PostViewset, basename="post")
+router.register("categories", CategoryViewset, basename="category")
 
 
 app_name = "api"

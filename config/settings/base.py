@@ -291,9 +291,9 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend", "rest_framework.filters.SearchFilter"),
+    "DEFAULT_FILTER_BACKENDS": ("rest_framework.filters.SearchFilter", "django_filters.rest_framework.DjangoFilterBackend"),
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
