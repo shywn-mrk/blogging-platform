@@ -32,6 +32,10 @@ class Command(BaseCommand):
                     is_published=random.choice([True, False]),
                 )
             except IntegrityError:
-                self.stdout.write(self.style.ERROR("Database populated failed."))
+                self.stdout.write(
+                    self.style.ERROR("Database populated failed.")
+                )
 
-        self.stdout.write(self.style.SUCCESS("Database populated successfully."))
+        self.stdout.write(
+            self.style.SUCCESS("Database populated successfully.")
+        )

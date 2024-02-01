@@ -14,5 +14,5 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = "__all__"
         # exclude = ['user']
-        read_only_fields = ['user']
-        depth = 1
+        read_only_fields = ["user"]
+        # depth = 1

@@ -14,6 +14,7 @@ repos:
       - id: check-toml
       - id: check-xml
       - id: check-yaml
+        args: [--allow-multiple-documents]
       - id: debug-statements
       - id: check-builtin-literals
       - id: check-case-conflict
@@ -32,15 +33,23 @@ repos:
       - id: pyupgrade
         args: [--py311-plus]
 
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.2.1
+    hooks:
+        - id: autoflake
+          args: [--remove-all-unused-imports, --in-place]
+
   - repo: https://github.com/psf/black
     rev: 23.12.1
     hooks:
       - id: black
+        args: [--line-length=80]
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2
     hooks:
       - id: isort
+        args: ['--profile', 'black', --line-length=80]
 
   - repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
