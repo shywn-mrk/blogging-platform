@@ -12,6 +12,7 @@ services:
     image: blogging_platform_local_django
     container_name: blogging_platform_local_django
     depends_on:
+      - redis
       - postgres
     volumes:
       - .:/app:z
@@ -21,6 +22,9 @@ services:
     ports:
       - '8000:8000'
     command: /start
+
+  redis:
+    image: redis:6
 
   postgres:
     build:
