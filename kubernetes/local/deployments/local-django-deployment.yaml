@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-django-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: local-django
+  template:
+    metadata:
+      labels:
+        app: local-django
+    spec:
+      containers:
+        - name: local-django
+          image: blogging_platform_local_django
+          volumeMounts:
+            - name: source
+              mountPath: /app
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: dbname
+            # Add other environment variables as needed
+      volumes:
+        - name: source
+          hostPath:
+            path: /path/to/your/local/django/project

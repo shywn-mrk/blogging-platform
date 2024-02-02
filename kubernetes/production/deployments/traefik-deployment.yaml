@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      containers:
+        - name: traefik
+          image: blogging_platform_production_traefik
+          volumeMounts:
+            - name: traefik
+              mountPath: /etc/traefik/acme
+      volumes:
+        - name: traefik
+          persistentVolumeClaim:
+            claimName: production-traefik

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-docs-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: local-docs
+  template:
+    metadata:
+      labels:
+        app: local-docs
+    spec:
+      containers:
+        - name: local-docs
+          image: blogging_platform_local_docs
+          volumeMounts:
+            - name: docs-volume
+              mountPath: /docs
+            - name: config-volume
+              mountPath: /app/config
+            - name: blogging-platform-volume
+              mountPath: /app/blogging_platform
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: dbname
+            # Add other environment variables as needed
+      volumes:
+        - name: docs-volume
+          hostPath:
+            path: /path/to/your/local/docs
+        - name: config-volume
+          hostPath:
+            path: /path/to/your/local/config
+        - name: blogging-platform-volume
+          hostPath:
+            path: /path/to/your/local/blogging_platform
