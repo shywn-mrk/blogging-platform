@@ -9,7 +9,7 @@ from rest_framework.mixins import (
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from .serializers import UserSerializer
+from .serializers import UserCreateSerializer, UserSerializer
 
 User = get_user_model()
 
@@ -29,3 +29,18 @@ class UserViewSet(
     def me(self, request):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+
+class UserCreateView(GenericViewSet):
+    serializer_class = UserCreateSerializer
+
+    def create(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data)
+
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            new_data = serializer.data
+            return Response(new_data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
