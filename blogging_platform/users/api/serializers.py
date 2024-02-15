@@ -1,8 +1,10 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
+from blogging_platform.posts.groups import BLOG
 from blogging_platform.users.models import User as UserType
 
 User = get_user_model()
@@ -25,9 +27,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            "username",
-            "first_name",
-            "last_name",
             "email",
             "password",
             "confirm_password",
@@ -36,20 +35,17 @@ class UserCreateSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
-        username = validated_data["username"]
-        first_name = validated_data["first_name"]
-        last_name = validated_data["last_name"]
         email = validated_data["email"]
         password = validated_data["password"]
+        blog_group = Group.objects.get(name=BLOG)
 
-        user = User(  # type: ignore
-            username=username,
+        user = User(
             email=email,
-            first_name=first_name,
-            last_name=last_name,
         )
         user.set_password(password)
         user.save()
+
+        user.groups.add(blog_group)
 
         token = Token.objects.create(user=user)
         validated_data["token"] = token.key

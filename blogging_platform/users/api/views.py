@@ -40,7 +40,6 @@ class UserCreateView(GenericViewSet):
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            new_data = serializer.data
-            return Response(new_data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
