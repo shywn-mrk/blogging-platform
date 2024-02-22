@@ -19,7 +19,9 @@ class Command(BaseCommand):
         categories = [Category(name=f"Category {i}") for i in range(1, 41)]
         Category.objects.bulk_create(categories)
 
-        users = [User(email=f"user{i}@example.com") for i in range(1, 101)]
+        users = [
+            User(email=f"user{i}@blogging-platform.info") for i in range(1, 101)
+        ]
         User.objects.bulk_create(users)
 
         for i in range(1, 10001):
